@@ -1,0 +1,52 @@
+# Theaterwerk Webseite - Jekyll Configuration
+# GitHub Pages wird mit Jekyll automatisch diese Config nutzen
+
+title: Theaterwerk Reutlingen
+description: Junge Theaterpädagogikwerkstatt für Begegnung und Partizipation
+author: Theaterwerk - Junge Theaterpädagogikwerkstatt
+email: theaterwerk.info@gmx.de
+url: https://mirvollegal.github.io
+
+# Theme (optional - using custom CSS)
+# theme: jekyll-theme-minimal
+# remote_theme: pages-themes/minimal@v0.2.0
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Build settings
+markdown: kramdown
+kramdown:
+  parse_block_html: true
+
+# Permalink structure
+permalink: /:title/
+
+# Collections für verschiedene Inhaltstypen
+collections:
+  seiten:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults - automatische Anwendung von Layouts
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "seiten"
+    values:
+      layout: "page"
+
+# Exclude
+exclude:
+  - .git
+  - .gitignore
+  - README.md
+  - LICENSE
+  - beispiele/

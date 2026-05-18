@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHJ4PSI4IiBmaWxsPSIjOWEwMDI5Ii8+PHRleHQgeD0iMTYiIHk9IjI0IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjIwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VDwvdGV4dD48L3N2Zz4=">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="theater-page">
+  <!-- Fixed Background -->
+  <div class="bg-fixed"></div>
+  
+  <!-- Scrollable Content -->
+  <div class="content-wrapper">
+    <!-- Navigation -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <div class="nav-logo">🎭 {{ site.title }}</div>
+        <button class="nav-toggle" aria-label="Menü">☰</button>
+        <div class="nav-links">
+          <a href="{{ site.baseurl }}/" class="nav-link">Startseite</a>
+          
+          <!-- Unser Angebot -->
+          <div class="nav-item">
+            <a href="{{ site.baseurl }}/angebote" class="nav-link dropdown-toggle">Unser Angebot <span class="arrow">▼</span></a>
+            <div class="dropdown-menu">
+              <a href="{{ site.baseurl }}/angebote#theatergruppen">Unsere Theatergruppen</a>
+              <a href="{{ site.baseurl }}/angebote#schulen">Angebote für Schulen</a>
+            </div>
+          </div>
+          
+          <!-- Über uns -->
+          <div class="nav-item">
+            <a href="{{ site.baseurl }}/ueber-uns" class="nav-link dropdown-toggle">Über uns <span class="arrow">▼</span></a>
+            <div class="dropdown-menu">
+              <a href="{{ site.baseurl }}/ueber-uns#kontakt">Kontakt</a>
+              <a href="{{ site.baseurl }}/ueber-uns#impressum">Impressum</a>
+            </div>
+          </div>
+          
+          <!-- Mitmachen -->
+          <div class="nav-item">
+            <a href="{{ site.baseurl }}/mitmachen" class="nav-link dropdown-toggle">Mitmachen <span class="arrow">▼</span></a>
+            <div class="dropdown-menu">
+              <a href="{{ site.baseurl }}/mitmachen#vereinsmitglied">Vereinsmitglied werden</a>
+              <a href="{{ site.baseurl }}/mitmachen#finanzielle">Finanzielle Unterstützung</a>
+            </div>
+          </div>
+          
+          <!-- Theaterpädagog*innen Vernetzung (kein Dropdown) -->
+          <a href="{{ site.baseurl }}/theaterpaedagogen-vernetzung" class="nav-link">Theaterpädagog*innen Vernetzung</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main class="page-content">
+      {% if page.title and page.hide-header != true %}
+        <div class="header-container">
+          <div class="page-header">
+            <h1>{{ page.title }}</h1>
+            {% if page.subtitle %}<p class="subtitle">{{ page.subtitle }}</p>{% endif %}
+          </div>
+      </div>
+      {% endif %}
+
+      <div class="content-container">
+        {{ content }}
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-logo">🎭 {{ site.title }}</div>
+        
+        {% if site.data.kontakt %}
+          <div class="footer-contact">
+            {% if site.data.kontakt.email %}
+              <div class="contact-item">
+                <span class="contact-icon">✉️</span>
+                <div>
+                  <strong>Email:</strong><br>
+                  <a href="mailto:{{ site.data.kontakt.email }}">{{ site.data.kontakt.email }}</a>
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if site.data.kontakt.adresse %}
+              <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                <div>
+                  <strong>Adresse:</strong><br>
+                  {% for line in site.data.kontakt.adresse %}{{ line }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+        
+        <div class="footer-bottom">
+          <p>&copy; {{ 'now' | date: '%Y' }} {{ site.title }}. Alle Rechte vorbehalten.</p>
+          <div class="footer-links">
+            <a href="{{ site.baseurl }}/ueber-uns#impressum">Impressum</a> | 
+            <a href="{{ site.baseurl }}/datenschutz">Datenschutz</a> | 
+            <a href="{{ site.baseurl }}/sitemap.xml">Sitemap</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Theater Stage Scroll Effect -->
+  <script>
+    (function() {
+      const bgFixed = document.querySelector('.bg-fixed');
+      const contentWrapper = document.querySelector('.content-wrapper');
+      const footer = document.querySelector('.main-footer');
+      
+      if (!bgFixed || !contentWrapper || !footer) return;
+      
+      contentWrapper.addEventListener('scroll', function() {
+        // Berechne die Position des Footers relativ zum sichtbaren Viewport
+        const footerRect = footer.getBoundingClientRect();
+        const scrollTop = contentWrapper.scrollTop;
+        const contentHeight = contentWrapper.clientHeight;
+        const totalScrollHeight = contentWrapper.scrollHeight;
+        
+        // Berechne wie viel vom unteren Bereich der contentWrapper scrollbar ist
+        // wenn der Footer sichtbar wird, starte die Translation der Bühne
+        const footerTopInViewport = footerRect.top;
+        
+        // Wenn der Footer weniger als die volle Höhe vom unteren Viewport-Rand entfernt ist,
+        // verschiebe die Bühne nach oben
+        let translateY = 0;
+        
+        // Trigger: wenn Footer in die untere Hälfte des Viewports kommt
+        if (footerTopInViewport < contentHeight) {
+          // Berechne wie weit der Footer bereits im Viewport ist
+          const distanceFromBottom = Math.max(0, contentHeight - footerTopInViewport);
+          translateY = -distanceFromBottom;
+        }
+        
+        bgFixed.style.transform = `translateY(${translateY}px)`;
+      });
+    })();
+  </script>
+
+  <!-- Mobile Navigation Toggle -->
+  <script>
+    (function() {
+      const navToggle = document.querySelector('.nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      const navItems = document.querySelectorAll('.nav-item');
+      const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+      
+      if (!navToggle || !navLinks) return;
+      
+      // Toggle main mobile menu
+      navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+      });
+      
+      // Handle dropdown toggles on mobile
+      dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+          // Only on mobile
+          if (window.innerWidth > 768) return;
+          
+          e.preventDefault();
+          const navItem = this.closest('.nav-item');
+          navItem.classList.toggle('active');
+        });
+      });
+      
+      // Close menu when a non-dropdown link is clicked
+      Array.from(navLinks.querySelectorAll('a:not(.dropdown-toggle)')).forEach(link => {
+        link.addEventListener('click', function() {
+          navLinks.classList.remove('active');
+          // Close all dropdowns
+          navItems.forEach(item => item.classList.remove('active'));
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!event.target.closest('.main-nav')) {
+          navLinks.classList.remove('active');
+          navItems.forEach(item => item.classList.remove('active'));
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
